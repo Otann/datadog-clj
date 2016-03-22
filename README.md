@@ -3,7 +3,7 @@
 `datadog-clj` is a client for [DataDog](https://www.datadoghq.com) service
 for the [Clojure](http://clojure.org) programming language.
 
-[![Clojars Project](http://clojars.org/datadog-clj/latest-version.svg)](https://clojars.org/datadog-clj)
+[![Clojars Project](http://clojars.org/datadog/latest-version.svg)](https://clojars.org/datadog)
 
 ## Origins
 
@@ -13,7 +13,7 @@ continue working in a forked repository under a different name.
 
 ## Installation
 
-Add `[datadog-clj "1.0.0"]` to the dependency section in your project.clj file:
+Add `[datadog "1.0.0"]` to the dependency section in your project.clj file:
 
 ## Example Usage
 

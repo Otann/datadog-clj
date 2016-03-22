@@ -1,4 +1,4 @@
-(defproject datadog-clj "1.0.0"
+(defproject datadog "1.0.0"
   :description "Clojure client for DataDog service via statsd protocol"
   :url "https://github.com/otann/datadog-clj"
 
