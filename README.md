@@ -1,16 +1,14 @@
-# datadog-clj
+# datadog-clj [![Circle CI](https://circleci.com/gh/Otann/datadog-clj.svg?style=shield&no-cache)](https://circleci.com/gh/Otann/datadog-clj)
 
 `datadog-clj` is a client for [DataDog](https://www.datadoghq.com) service
 for the [Clojure](http://clojure.org) programming language.
-
-[![Circle CI](https://circleci.com/gh/otann/datadog-clj.svg?style=shield)](https://circleci.com/gh/otann/datadog-clj)
 
 [![Clojars Project](http://clojars.org/datadog-clj/latest-version.svg)](https://clojars.org/datadog-clj)
 
 ## Origins
 
 This was a project I developed for TruckerPath company, while I was working there. 
-Due to the changes other developer made to the original code and his uncooperative nature, I decided to
+Due to the other developer uncooperative nature, I decided to
 continue working in a forked repository under a different name.
 
 ## Installation
@@ -31,7 +29,8 @@ Then import DataDog in your namespace:
 (require '[datadog.core :as dd])
 ```
 
-If you are using an alternative installation, you can easily redefine the default connection with:
+If you are using an alternative installation, you can easily redefine the 
+default connection to the agent with the following code:
 
 ```clojure
 (dd/set-connection! {:host "datadog" :port 31337})
@@ -88,8 +87,6 @@ In second case tags are required, even if empty.
 
 
 ## License
-
-Copyright © 2015 TruckerPath
 
 Distributed under the Eclipse Public License either version 1.0 or (at
 your option) any later version.
