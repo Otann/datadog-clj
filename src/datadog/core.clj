@@ -1,17 +1,21 @@
-(ns clj-datadog.core
+(ns datadog.core
   "A simple StatsD client written in Clojure
    Taken from https://github.com/etsy/statsd/tree/master/examples
 
    Comments for metrics are taken from official documentation:
    http://docs.datadoghq.com/guides/dogstatsd"
-  (:require [environ.core :refer [env]])
   (:import (java.net InetAddress DatagramPacket DatagramSocket))
   (:gen-class))
 
 ;; Default connection parameters
 
-(def ^:private server-host (env :datadog-host "127.0.0.1"))
-(def ^:private server-port (env :datadog-port 8125))
+(def ^:private connection (atom {:host "127.0.0.1"
+                                 :port 8125}))
+
+(defn set-connection!
+  "External function to let user redefine connection map"
+  [conn]
+  (reset! connection conn))
 
 (defn format-tags
   "Construcsts statsd-formatted string with tags"
@@ -45,7 +49,7 @@
   (let [send-socket (make-socket)]
        (fn [data] (send-data send-socket ip port data))))
 
-(def ^:private send-msg (make-send server-host server-port))
+(def ^:private send-msg (make-send (:host @connection) (:port @connection)))
 
 ;; StatsD client functions
 
@@ -89,6 +93,18 @@
   (gauge "file.upload.size" (:size file))
   (gauge "file.size" (:size file) {:type "upload"}))
 
+(defn unique
+  "Sets are used to count the number of unique elements in
+   a group. If you want to track the number of unique
+   visitor to your site, sets are a great way to do that."
+  ([metric value] (unique metric value {}))
+  ([metric value tags]
+    (send-msg (str metric ":" value "|s" (format-tags tags)))))
+
+(comment
+  (unique "users.uniques" (:id user))
+  (unique "sessions.unique" (:id session) {:group (:group session)}))
+
 (defn timing
   "StatsD only supports histograms for timing, not generic values
    (like the size of uploaded files or the number of rows returned
@@ -119,3 +135,4 @@
 (comment
   (timed "database.query.time" {:query "find-by-id"}
          (db.find-by-id id)))
+

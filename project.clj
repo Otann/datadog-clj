@@ -1,29 +1,21 @@
-(defproject clj-datadog "1.0.1"
+(defproject datadog-clj "1.0.0"
   :description "Clojure client for DataDog service via statsd protocol"
-  :url "https://github.com/truckerpathteam/clj-datadog"
+  :url "https://github.com/otann/datadog-clj"
 
-  :dependencies [[org.clojure/clojure "1.6.0"]
-                 [environ "1.0.0"]]
-
-  :main ^:skip-aot clj-datadog.core
-
-  :target-path "target/%s"
+  :dependencies [[org.clojure/clojure "1.6.0"]]
 
   :profiles {:uberjar {:aot :all}
              :test {:dependencies [[expectations "2.0.9"]]}}
 
   ;; Artifact deployment info
   :scm {:name "git"
-        :url "https://github.com/truckerpathteam/clj-datadog"}
+        :url "https://github.com/otann/datadog-clj"}
 
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
 
-  :signing {:gpg-key "9E4DE0B2"}
-  :deploy-repositories [["clojars" {:creds :gpg}]]
-
   :pom-addition [:developers [:developer
                               [:name "Anton Chebotaev"]
-                              [:url "http://chebotaev.me"]
+                              [:url "http://otann.com"]
                               [:email "anton.chebotaev@gmail.com"]
                               [:timezone "+3"]]])

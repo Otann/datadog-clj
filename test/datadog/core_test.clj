@@ -1,6 +1,6 @@
-(ns clj-datadog.core-test
+(ns datadog.core-test
   (:require [clojure.test :refer :all]
-            [clj-datadog.core :as dd]
+            [datadog.core :as dd]
             [expectations :refer [expect side-effects]]))
 
 (defmacro last-sent-msg
@@ -27,7 +27,7 @@
 
 (deftest should-send-increment
   (expect "page.views:1|c"
-            (last-sent-msg (dd/increment "page.views")))
+          (last-sent-msg (dd/increment "page.views")))
   (expect "page.views:7|c"
           (last-sent-msg (dd/increment "page.views" 7)))
 
@@ -51,6 +51,12 @@
           (last-sent-msg (dd/gauge "total.posts" 526)))
   (expect "total.posts:526|g|#site:main"
           (last-sent-msg (dd/gauge "total.posts" 526 {:site "main"}))))
+
+(deftest should-send-set
+  (expect "users.unique:653848|s"
+          (last-sent-msg (dd/unique "users.unique" 653848)))
+  (expect "users.unique:653848|s|#group:providers"
+          (last-sent-msg (dd/unique "users.unique" 653848 {:group "providers"}))))
 
 (deftest should-send-timings
   (expect "db.query.time:576|ms"
